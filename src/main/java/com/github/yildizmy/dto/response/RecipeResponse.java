@@ -21,7 +21,7 @@ public class RecipeResponse {
     private String difficulty;
     private String healthLabel;
     private CategoryResponse category;
-    List<RecipeIngredientResponse> ingredients;
+    private List<RecipeIngredientResponse> ingredients;
 
     public RecipeResponse(Recipe recipe) {
         this.id = recipe.getId();

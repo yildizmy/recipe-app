@@ -11,11 +11,11 @@ import org.apache.commons.lang3.StringUtils;
 @NoArgsConstructor
 public class RecipeSearchRequest {
 
-    Boolean isVegetarian;
-    Integer servings;
-    String ingredientIn;
-    String ingredientEx;
-    String text;
+    private Boolean isVegetarian;
+    private Integer servings;
+    private String ingredientIn;
+    private String ingredientEx;
+    private String text;
 
     public Boolean getIsVegetarian() {
         return isVegetarian;

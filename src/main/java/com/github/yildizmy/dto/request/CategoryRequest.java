@@ -15,11 +15,11 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class CategoryRequest {
 
-    Long id;
+    private Long id;
 
     @NotBlank
-    String name;
+    private String name;
 
     @NotNull
-    Integer ordinal;
+    private Integer ordinal;
 }

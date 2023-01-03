@@ -12,10 +12,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class IngredientRequest {
 
-    Long id;
+    private Long id;
 
     @NotBlank
-    String name;
+    private String name;
 
     public IngredientRequest(String name) {
         this.id = 0L;

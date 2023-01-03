@@ -13,15 +13,15 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class RecipeIngredientRequest {
 
-    Long recipeId;
+    private Long recipeId;
 
-    Long ingredientId;
+    private Long ingredientId;
 
-    String ingredientName;
-
-    @NotNull
-    Long unitId;
+    private String ingredientName;
 
     @NotNull
-    BigDecimal amount;
+    private Long unitId;
+
+    @NotNull
+    private BigDecimal amount;
 }

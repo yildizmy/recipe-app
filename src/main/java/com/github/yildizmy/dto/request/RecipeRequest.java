@@ -15,32 +15,32 @@ import java.util.List;
 @NoArgsConstructor
 public class RecipeRequest {
 
-    Long id;
+    private Long id;
 
-    Long categoryId;
+    private Long categoryId;
 
     @NotBlank
     @Size(min = 3, max = 50)
-    String title;
+    private String title;
 
-    String description;
+    private String description;
 
-    Integer prepTime;
+    private Integer prepTime;
 
-    Integer cookTime;
+    private Integer cookTime;
 
     @Min(1)
     @Max(12)
-    Integer servings;
+    private Integer servings;
 
     @NotBlank
-    String instructions;
+    private String instructions;
 
     @NotNull
-    Difficulty difficulty;
+    private Difficulty difficulty;
 
     @NotNull
-    HealthLabel healthLabel;
+    private HealthLabel healthLabel;
 
-    List<RecipeIngredientRequest> recipeIngredients;
+    private List<RecipeIngredientRequest> recipeIngredients;
 }

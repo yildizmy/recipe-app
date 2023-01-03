@@ -14,8 +14,8 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class UnitRequest {
 
-    Long id;
+    private Long id;
 
     @NotBlank
-    String name;
+    private String name;
 }
