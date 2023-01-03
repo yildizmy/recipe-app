@@ -7,10 +7,9 @@ import java.time.format.DateTimeFormatter;
 /**
  * Constant variables used in the project
  */
-public class Constants {
+public final class Constants {
 
-    private Constants() {
-    }
+    private Constants() {}
 
     @Value("${spring.jackson.date-format}")
     private static String dateFormat;
