@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Static values used in the project
+ * Constant variables used in the project
  */
 public class Constants {
 
