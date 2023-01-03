@@ -1,0 +1,61 @@
+# Spring Boot configuration
+spring:
+  profiles:
+    active: production
+  application:
+    name: recipe-api
+  main:
+    banner-mode: off
+  jackson:
+    date-format: "dd.mm.yyyy"
+  # Database properties
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  # JPA properties
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+    throw-exception-if-no-handler-found: 'true'
+  servlet:
+    multipart:
+      max-request-size: 20MB
+      max-file-size: 20MB
+
+# logger configuration
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    org.springframework: error
+    org.hibernate: error
+    com.github.yildizmy: debug
+  file:
+    name: './logs/application.log'
+
+# server configuration
+server:
+  port: 8080
+  # exception handling
+  error:
+    include-stacktrace: on_param
+    include-exception: 'true'
+    include-binding-errors: always
+    include-message: always
+
+# custom properties
+reflecting:
+  trace: 'true'

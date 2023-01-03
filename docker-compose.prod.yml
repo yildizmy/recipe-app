@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: recipe-app-backend
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+    networks:
+      - recipe-app-net
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '5'
