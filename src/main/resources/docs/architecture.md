@@ -3,7 +3,7 @@
 The entity relationship in the project is shown on the following ER Diagram:
 
 
-<img src="images/er_diagram.jpg" alt="er diagram" style="width:1180px"/>
+<img src="images/er_diagram.jpg" width="960"/>
 
 <br/>
 
