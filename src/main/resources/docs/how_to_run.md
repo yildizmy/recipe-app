@@ -47,7 +47,7 @@ DB_NAME=recipe;DB_USERNAME=postgres;DB_PASSWORD=pass
 
 > **Note** If Environment variables field is not available, it can be added via Modify options menu.
 
-<img src="images/environment_variables.png" width="720"/>
+<img src="images/environment_variables.png" alt="environment variables" style="width:1180px"/>
 
 <br/>
 
