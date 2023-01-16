@@ -227,7 +227,6 @@ class RecipeServiceTest {
         verify(recipeRepository).search(any(), any(), any(), any(), any());
     }
 
-
     /**
      * Method under test: {@link RecipeService#create(RecipeRequest)}
      */
@@ -284,7 +283,6 @@ class RecipeServiceTest {
         verify(unitRepository, never()).findById(any());
         verify(recipeRepository, never()).save(any());
     }
-
 
     /**
      * Method under test: {@link RecipeService#create(RecipeRequest)}
@@ -363,7 +361,6 @@ class RecipeServiceTest {
         verify(recipeRepository, never()).save(any());
     }
 
-
     /**
      * Method under test: {@link RecipeService#create(RecipeRequest)}
      */
@@ -416,7 +413,6 @@ class RecipeServiceTest {
         verify(recipeRepository).save(capturedRecipe);
         verify(ingredientRepository, never()).save(any());
     }
-
 
     /**
      * Method under test: {@link RecipeService#update(RecipeRequest)}
@@ -487,7 +483,6 @@ class RecipeServiceTest {
         assertEquals(instructions, capturedRecipe.getInstructions());
         verify(recipeRepository).save(capturedRecipe);
     }
-
 
     /**
      * Method under test: {@link RecipeService#deleteById(Long)}
