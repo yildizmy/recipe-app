@@ -47,7 +47,7 @@ class RecipeIngredientControllerTest {
     private RecipeIngredientRepository recipeIngredientRepository;
 
     /**
-     * Method under test: {@link RecipeIngredientController#addIngredientForRecipe(RecipeIngredientRequest)}
+     * Method under test: {@link RecipeIngredientController#addIngredientToRecipe(RecipeIngredientRequest)} 
      */
     @Test
     void test_addIngredientForRecipe() throws Exception {
@@ -118,7 +118,7 @@ class RecipeIngredientControllerTest {
     }
 
     /**
-     * Method under test: {@link RecipeIngredientController#addIngredientForRecipe(RecipeIngredientRequest)}
+     * Method under test: {@link RecipeIngredientController#addIngredientToRecipe(RecipeIngredientRequest)} 
      */
     @Test
     void test_addIngredientForRecipe_2() throws Exception {
@@ -185,7 +185,7 @@ class RecipeIngredientControllerTest {
     }
 
     /**
-     * Method under test: {@link RecipeIngredientController#deleteById(long, long)}
+     * Method under test: {@link RecipeIngredientController
      */
     @Test
     void test_deleteById() throws Exception {
