@@ -45,7 +45,7 @@ public class Recipe {
     @Enumerated(value = EnumType.STRING)
     private HealthLabel healthLabel;
 
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
