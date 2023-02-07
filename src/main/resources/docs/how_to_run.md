@@ -28,16 +28,7 @@ git clone https://github.com/yildizmy/recipe-api.git
 ```
 <br/>
 
-2. Open the project using IntelliJ IDEA and update `DB_NAME`, `DB_USERNAME` and `DB_PASSWORD` parameter values in the `.env` file located in project root.
-
-```
-DB_NAME=recipe
-DB_USERNAME=postgres
-DB_PASSWORD=pass
-```
-<br/>
-
-3. Select _Run > Edit Configurations_ and add the following variables to the Environment variables field after updating them with the same values as in the `.env` file.
+2. Select _Run > Edit Configurations_ and add the following variables to the Environment variables field after updating them with the same values as in the `.env` file.
 
 ```
 DB_NAME=recipe;DB_USERNAME=postgres;DB_PASSWORD=pass
@@ -51,11 +42,11 @@ DB_NAME=recipe;DB_USERNAME=postgres;DB_PASSWORD=pass
 
 <br/>
 
-4. Run Docker desktop.
+3. Run Docker desktop.
 
 <br/>
 
-5. Open command prompt window. Change the current directory to the project directory where the `docker-compose.yml` file
+4. Open command prompt window. Change the current directory to the project directory where the `docker-compose.yml` file
    is in:
 
 ```
@@ -64,7 +55,7 @@ cd recipe-api
 <br/>
 
 
-6. Run the following command:
+5. Run the following command:
 
 ```
 docker-compose up -d
@@ -72,7 +63,9 @@ docker-compose up -d
 
 <br/>
 
-7. Then the database container starts up after build. This process can take several minutes based on the internet connection. After this step is completed, run the application using IntelliJ IDEA and then send request to the endpoints. For this purpose, see the details on [How to test?](how_to_test.md) section.
+6. Then the database container starts up after build. This process can take several minutes based on the internet connection. 
+After this step is completed, run the application using IntelliJ IDEA and then send request to the endpoints. 
+For this purpose, see the details on [How to test?](how_to_test.md) section.
 
 <br/>
 
@@ -95,6 +88,10 @@ DB_NAME=recipe
 DB_USERNAME=postgres
 DB_PASSWORD=pass
 ```
+
+> **Note** When you run `docker compose up`, the environment variables are set with the values in the .env file. </br>
+> For more information: https://docs.docker.com/compose/environment-variables/set-environment-variables/
+
 <br/>
 
 3. Run Docker desktop.
