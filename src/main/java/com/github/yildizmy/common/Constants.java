@@ -35,7 +35,7 @@ public final class Constants {
     public static final String NOT_FOUND_UNIT = "Requested unit is not found";
     public static final String ALREADY_EXISTS = "Requested element already exists";
     public static final String ALREADY_EXISTS_CATEGORY = "Requested category already exists";
-    public static final String ALREADY_EXISTS_INGREDIENT = "Requested ingredient already exists";
+    public static final String ALREADY_EXISTS_INGREDIENT = "Requested ingredient already exists (IngredientId: %d)";
     public static final String ALREADY_EXISTS_UNIT = "Requested unit already exists";
     public static final String NOT_VALIDATED_ELEMENT = "Failed to validate the input";
     public static final String NOT_VALIDATED_INGREDIENT = "There are duplicate ingredients for the given recipe";
