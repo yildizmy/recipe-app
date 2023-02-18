@@ -1,6 +1,5 @@
 package com.github.yildizmy.exception;
 
-import com.github.yildizmy.common.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +15,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Objects;
+
+import static com.github.yildizmy.common.Constants.*;
 
 /**
  * Global exception handler class for handling all the exceptions
@@ -45,8 +46,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,
                                                                   WebRequest request) {
-        log.error(Constants.METHOD_ARGUMENT_NOT_VALID, ex);
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(), Constants.VALIDATION_ERROR);
+        log.error(METHOD_ARGUMENT_NOT_VALID, ex);
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.UNPROCESSABLE_ENTITY.value(), VALIDATION_ERROR);
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
             errorResponse.addValidationError(fieldError.getField(), fieldError.getDefaultMessage());
         }
@@ -63,7 +64,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoSuchElementFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> handleNoSuchElementFoundException(NoSuchElementFoundException ex, WebRequest request) {
-        log.error(Constants.NOT_FOUND, ex);
+        log.error(NOT_FOUND, ex);
         return buildErrorResponse(ex, HttpStatus.NOT_FOUND, request);
     }
 
@@ -77,7 +78,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ElementAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseEntity<Object> handleElementAlreadyExistsException(ElementAlreadyExistsException ex, WebRequest request) {
-        log.error(Constants.ALREADY_EXISTS, ex);
+        log.error(ALREADY_EXISTS, ex);
         return buildErrorResponse(ex, HttpStatus.CONFLICT, request);
     }
 
@@ -136,7 +137,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @return the tracing status based on the request
      */
     private boolean isTraceOn(WebRequest request) {
-        String[] value = request.getParameterValues(Constants.TRACE);
+        String[] value = request.getParameterValues(TRACE);
         return Objects.nonNull(value)
                 && value.length > 0
                 && value[0].contentEquals("true");
