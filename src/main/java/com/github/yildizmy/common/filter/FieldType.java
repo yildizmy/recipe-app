@@ -1,9 +1,11 @@
 package com.github.yildizmy.common.filter;
 
-import com.github.yildizmy.common.Constants;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
+
+import static com.github.yildizmy.common.Constants.FIELD_PARSE_ERROR;
+import static com.github.yildizmy.common.Constants.FORMATTER;
 
 /**
  * Field types used for filtering
@@ -25,9 +27,9 @@ public enum FieldType {
         public Object parse(String value) {
             Object date = null;
             try {
-                date = LocalDateTime.parse(value, Constants.FORMATTER);
+                date = LocalDateTime.parse(value, FORMATTER);
             } catch (Exception e) {
-                log.warn(Constants.FIELD_PARSE_ERROR, e.getMessage());
+                log.warn(FIELD_PARSE_ERROR, e.getMessage());
             }
             return date;
         }
