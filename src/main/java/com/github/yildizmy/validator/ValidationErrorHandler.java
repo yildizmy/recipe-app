@@ -30,7 +30,7 @@ public class ValidationErrorHandler {
     ValidationErrorResponse onConstraintValidationException(ConstraintViolationException ex) {
         log.warn(NOT_VALIDATED_ELEMENT, ex);
         ValidationErrorResponse error = new ValidationErrorResponse();
-        for (ConstraintViolation violation : ex.getConstraintViolations()) {
+        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
             error.getViolations().add(new Violation(violation.getPropertyPath().toString(), violation.getMessage()));
         }
         return error;
