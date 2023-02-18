@@ -1,6 +1,5 @@
 package com.github.yildizmy.common.filter;
 
-import com.github.yildizmy.common.Constants;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -9,6 +8,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.github.yildizmy.common.Constants.FIELD_TYPE_ERROR;
 
 /**
  * Operator definitions used for filtering
@@ -68,7 +69,7 @@ public enum Operator {
                 return cb.and(cb.and(cb.ge(key, start), cb.le(key, end)), predicate);
             }
 
-            log.warn(Constants.FIELD_TYPE_ERROR, request.getFieldType());
+            log.warn(FIELD_TYPE_ERROR, request.getFieldType());
             return predicate;
         }
     };
