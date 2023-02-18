@@ -1,6 +1,5 @@
 package com.github.yildizmy.service;
 
-import com.github.yildizmy.common.Constants;
 import com.github.yildizmy.dto.request.RecipeIngredientRequest;
 import com.github.yildizmy.dto.response.CommandResponse;
 import com.github.yildizmy.exception.ElementAlreadyExistsException;
@@ -15,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static com.github.yildizmy.common.Constants.*;
 
 /**
  * Service used for adding and removing recipeIngredient
@@ -39,15 +40,15 @@ public class RecipeIngredientService {
         if (request.getIngredientId() != 0) {
             // check if the ingredient is already defined for the recipe
             if (recipeIngredientRepository.existsByRecipeIdAndIngredientId(request.getRecipeId(), request.getIngredientId())) {
-                log.error(Constants.ALREADY_EXISTS_INGREDIENT);
-                throw new ElementAlreadyExistsException(Constants.ALREADY_EXISTS_INGREDIENT + ". IngredientId: " + request.getIngredientId());
+                log.error(ALREADY_EXISTS_INGREDIENT);
+                throw new ElementAlreadyExistsException(ALREADY_EXISTS_INGREDIENT + ". IngredientId: " + request.getIngredientId());
             }
             ingredient = new Ingredient(request.getIngredientId());
         } else {
             // check if the new ingredient is already defined before
             if (ingredientRepository.existsByNameIgnoreCase(request.getIngredientName())) {
-                log.error(Constants.ALREADY_EXISTS_INGREDIENT);
-                throw new ElementAlreadyExistsException(Constants.ALREADY_EXISTS_INGREDIENT + ". IngredientName: " + request.getIngredientName());
+                log.error(ALREADY_EXISTS_INGREDIENT);
+                throw new ElementAlreadyExistsException(ALREADY_EXISTS_INGREDIENT + ". IngredientName: " + request.getIngredientName());
             }
             ingredient = ingredientRepository.save(new Ingredient(0L, request.getIngredientName()));
         }
@@ -70,8 +71,8 @@ public class RecipeIngredientService {
     public CommandResponse removeIngredientFromRecipe(Long recipeId, Long ingredientId) {
         final RecipeIngredient recipeIngredient = recipeIngredientRepository.findByRecipeIdAndIngredientId(recipeId, ingredientId)
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_INGREDIENT);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_INGREDIENT);
+                    log.error(NOT_FOUND_INGREDIENT);
+                    return new NoSuchElementFoundException(NOT_FOUND_INGREDIENT);
                 });
         recipeIngredientRepository.delete(recipeIngredient);
         return CommandResponse.builder().id(recipeId).build();
