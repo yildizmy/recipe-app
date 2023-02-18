@@ -1,23 +1,23 @@
 package com.github.yildizmy.service;
 
-import com.github.yildizmy.common.Constants;
-import com.github.yildizmy.dto.mapper.UnitRequestMapper;
-import com.github.yildizmy.dto.request.UnitRequest;
-import com.github.yildizmy.dto.response.UnitResponse;
-import com.github.yildizmy.model.Unit;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import com.github.yildizmy.common.filter.SearchRequest;
 import com.github.yildizmy.common.filter.SearchSpecification;
+import com.github.yildizmy.dto.mapper.UnitRequestMapper;
+import com.github.yildizmy.dto.request.UnitRequest;
 import com.github.yildizmy.dto.response.CommandResponse;
+import com.github.yildizmy.dto.response.UnitResponse;
 import com.github.yildizmy.exception.ElementAlreadyExistsException;
 import com.github.yildizmy.exception.NoSuchElementFoundException;
+import com.github.yildizmy.model.Unit;
 import com.github.yildizmy.repository.UnitRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.github.yildizmy.common.Constants.*;
 import static org.apache.commons.text.WordUtils.capitalizeFully;
 
 /**
@@ -40,8 +40,8 @@ public class UnitService {
         return unitRepository.findById(id)
                 .map(UnitResponse::new)
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_UNIT);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_UNIT);
+                    log.error(NOT_FOUND_UNIT);
+                    return new NoSuchElementFoundException(NOT_FOUND_UNIT);
                 });
     }
 
@@ -58,8 +58,8 @@ public class UnitService {
         final Page<UnitResponse> units = unitRepository.findAll(specification, pageable)
                 .map(UnitResponse::new);
         if (units.isEmpty()) {
-            log.error(Constants.NOT_FOUND_RECORD);
-            throw new NoSuchElementFoundException(Constants.NOT_FOUND_RECORD);
+            log.error(NOT_FOUND_RECORD);
+            throw new NoSuchElementFoundException(NOT_FOUND_RECORD);
         }
         return units;
     }
@@ -72,8 +72,8 @@ public class UnitService {
      */
     public CommandResponse create(UnitRequest request) {
         if (unitRepository.existsByNameIgnoreCase(request.getName())) {
-            log.error(Constants.ALREADY_EXISTS_UNIT);
-            throw new ElementAlreadyExistsException(Constants.ALREADY_EXISTS_UNIT);
+            log.error(ALREADY_EXISTS_UNIT);
+            throw new ElementAlreadyExistsException(ALREADY_EXISTS_UNIT);
         }
         final Unit unit = UnitRequestMapper.mapToEntity(request);
         unitRepository.save(unit);
@@ -89,13 +89,13 @@ public class UnitService {
     public CommandResponse update(UnitRequest request) {
         final Unit unit = unitRepository.findById(request.getId())
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_UNIT);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_UNIT);
+                    log.error(NOT_FOUND_UNIT);
+                    return new NoSuchElementFoundException(NOT_FOUND_UNIT);
                 });
 
         if (unitRepository.existsByNameIgnoreCase(request.getName())) {
-            log.error(Constants.ALREADY_EXISTS_UNIT);
-            throw new ElementAlreadyExistsException(Constants.ALREADY_EXISTS_UNIT);
+            log.error(ALREADY_EXISTS_UNIT);
+            throw new ElementAlreadyExistsException(ALREADY_EXISTS_UNIT);
         }
         unit.setName(capitalizeFully(request.getName()));
         unitRepository.save(unit);
@@ -111,8 +111,8 @@ public class UnitService {
     public CommandResponse deleteById(Long id) {
         final Unit unit = unitRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_UNIT);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_UNIT);
+                    log.error(NOT_FOUND_UNIT);
+                    return new NoSuchElementFoundException(NOT_FOUND_UNIT);
                 });
         unitRepository.delete(unit);
         return CommandResponse.builder().id(id).build();
