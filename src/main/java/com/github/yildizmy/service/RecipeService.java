@@ -124,8 +124,8 @@ public class RecipeService {
                     } else {
                         // check if the new ingredient is already defined before
                         if (ingredientRepository.existsByNameIgnoreCase(recipeIngredient.getIngredientName())) {
-                            log.error(ALREADY_EXISTS_INGREDIENT);
-                            throw new ElementAlreadyExistsException(ALREADY_EXISTS_INGREDIENT + ". IngredientName: " + recipeIngredient.getIngredientName());
+                            log.error(String.format(ALREADY_EXISTS_INGREDIENT, recipeIngredient.getIngredientId()));
+                            throw new ElementAlreadyExistsException(String.format(ALREADY_EXISTS_INGREDIENT, recipeIngredient.getIngredientId()));
                         }
                         ingredient = ingredientRepository.save(new Ingredient(0L, recipeIngredient.getIngredientName()));
                     }
