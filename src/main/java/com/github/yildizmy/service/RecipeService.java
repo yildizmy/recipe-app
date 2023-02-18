@@ -1,6 +1,5 @@
 package com.github.yildizmy.service;
 
-import com.github.yildizmy.common.Constants;
 import com.github.yildizmy.common.filter.SearchRequest;
 import com.github.yildizmy.common.filter.SearchSpecification;
 import com.github.yildizmy.dto.mapper.RecipeRequestMapper;
@@ -24,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.github.yildizmy.common.Constants.*;
 import static org.apache.commons.text.WordUtils.capitalizeFully;
 
 /**
@@ -50,8 +50,8 @@ public class RecipeService {
         return recipeRepository.findById(id)
                 .map(RecipeResponse::new)
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_RECIPE);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_RECIPE);
+                    log.error(NOT_FOUND_RECIPE);
+                    return new NoSuchElementFoundException(NOT_FOUND_RECIPE);
                 });
     }
 
@@ -68,8 +68,8 @@ public class RecipeService {
         final Page<RecipeResponse> recipes = recipeRepository.findAll(specification, pageable)
                 .map(RecipeResponse::new);
         if (recipes.isEmpty()) {
-            log.error(Constants.NOT_FOUND_RECORD);
-            throw new NoSuchElementFoundException(Constants.NOT_FOUND_RECORD);
+            log.error(NOT_FOUND_RECORD);
+            throw new NoSuchElementFoundException(NOT_FOUND_RECORD);
         }
         return recipes;
     }
@@ -90,8 +90,8 @@ public class RecipeService {
                         request.getText()).stream()
                 .map(RecipeResponse::new).toList();
         if (recipes.isEmpty()) {
-            log.error(Constants.NOT_FOUND_RECORD);
-            throw new NoSuchElementFoundException(Constants.NOT_FOUND_RECORD);
+            log.error(NOT_FOUND_RECORD);
+            throw new NoSuchElementFoundException(NOT_FOUND_RECORD);
         }
         return recipes;
     }
@@ -106,8 +106,8 @@ public class RecipeService {
     public CommandResponse create(RecipeRequest request) {
         final Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_CATEGORY);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_CATEGORY);
+                    log.error(NOT_FOUND_CATEGORY);
+                    return new NoSuchElementFoundException(NOT_FOUND_CATEGORY);
                 });
         final Recipe recipe = RecipeRequestMapper.mapToEntity(request);
         recipe.setCategory(category);
@@ -118,21 +118,21 @@ public class RecipeService {
                     if (recipeIngredient.getIngredientId() != 0) {
                         ingredient = ingredientRepository.findById(recipeIngredient.getIngredientId())
                                 .orElseThrow(() -> {
-                                    log.error(Constants.NOT_FOUND_INGREDIENT);
-                                    return new NoSuchElementFoundException(Constants.NOT_FOUND_INGREDIENT);
+                                    log.error(NOT_FOUND_INGREDIENT);
+                                    return new NoSuchElementFoundException(NOT_FOUND_INGREDIENT);
                                 });
                     } else {
                         // check if the new ingredient is already defined before
                         if (ingredientRepository.existsByNameIgnoreCase(recipeIngredient.getIngredientName())) {
-                            log.error(Constants.ALREADY_EXISTS_INGREDIENT);
-                            throw new ElementAlreadyExistsException(Constants.ALREADY_EXISTS_INGREDIENT + ". IngredientName: " + recipeIngredient.getIngredientName());
+                            log.error(ALREADY_EXISTS_INGREDIENT);
+                            throw new ElementAlreadyExistsException(ALREADY_EXISTS_INGREDIENT + ". IngredientName: " + recipeIngredient.getIngredientName());
                         }
                         ingredient = ingredientRepository.save(new Ingredient(0L, recipeIngredient.getIngredientName()));
                     }
                     final Unit unit = unitRepository.findById(recipeIngredient.getUnitId())
                             .orElseThrow(() -> {
-                                log.error(Constants.NOT_FOUND_UNIT);
-                                return new NoSuchElementFoundException(Constants.NOT_FOUND_UNIT);
+                                log.error(NOT_FOUND_UNIT);
+                                return new NoSuchElementFoundException(NOT_FOUND_UNIT);
                             });
                     recipe.addRecipeIngredient(new RecipeIngredient(recipe, ingredient, unit, recipeIngredient.getAmount()));
                 });
@@ -151,14 +151,14 @@ public class RecipeService {
     public CommandResponse update(RecipeRequest request) {
         final Recipe recipe = recipeRepository.findById(request.getId())
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_RECIPE);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_RECIPE);
+                    log.error(NOT_FOUND_RECIPE);
+                    return new NoSuchElementFoundException(NOT_FOUND_RECIPE);
                 });
 
         final Category category = categoryRepository.findById(request.getCategoryId())
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_CATEGORY);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_CATEGORY);
+                    log.error(NOT_FOUND_CATEGORY);
+                    return new NoSuchElementFoundException(NOT_FOUND_CATEGORY);
                 });
 
         recipe.setTitle(capitalizeFully(request.getTitle()));
@@ -183,8 +183,8 @@ public class RecipeService {
     public CommandResponse deleteById(Long id) {
         final Recipe recipe = recipeRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_RECIPE);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_RECIPE);
+                    log.error(NOT_FOUND_RECIPE);
+                    return new NoSuchElementFoundException(NOT_FOUND_RECIPE);
                 });
         recipeRepository.delete(recipe);
         return CommandResponse.builder().id(id).build();
