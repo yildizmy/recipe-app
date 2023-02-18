@@ -28,7 +28,8 @@ public class RecipeIngredientController {
      * @return id of the recipe to which ingredient is added
      */
     @PostMapping("/recipeIngredients")
-    public ResponseEntity<ApiResponse<CommandResponse>> addIngredientToRecipe(@Valid @RequestBody RecipeIngredientRequest request) {
+    public ResponseEntity<ApiResponse<CommandResponse>> addIngredientToRecipe(
+            @Valid @RequestBody RecipeIngredientRequest request) {
         final CommandResponse response = recipeIngredientService.addIngredientToRecipe(request);
         return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
@@ -39,7 +40,8 @@ public class RecipeIngredientController {
      * @return id of the recipe from which ingredient is removed
      */
     @DeleteMapping("/recipeIngredients/recipes/{recipeId}/ingredients/{ingredientId}")
-    public ResponseEntity<ApiResponse<CommandResponse>> removeIngredientFromRecipe(@PathVariable long recipeId, @PathVariable long ingredientId) {
+    public ResponseEntity<ApiResponse<CommandResponse>> removeIngredientFromRecipe(
+            @PathVariable long recipeId, @PathVariable long ingredientId) {
         final CommandResponse response = recipeIngredientService.removeIngredientFromRecipe(recipeId, ingredientId);
         return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
