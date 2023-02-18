@@ -1,15 +1,14 @@
 package com.github.yildizmy.controller;
 
-import com.github.yildizmy.common.Constants;
-import com.github.yildizmy.dto.request.RecipeRequest;
-import com.github.yildizmy.dto.response.ApiResponse;
-import lombok.RequiredArgsConstructor;
 import com.github.yildizmy.common.filter.SearchRequest;
+import com.github.yildizmy.dto.request.RecipeRequest;
 import com.github.yildizmy.dto.request.RecipeSearchRequest;
+import com.github.yildizmy.dto.response.ApiResponse;
 import com.github.yildizmy.dto.response.CommandResponse;
 import com.github.yildizmy.dto.response.RecipeResponse;
 import com.github.yildizmy.service.RecipeService;
 import com.github.yildizmy.validator.ValidIngredient;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +18,9 @@ import javax.validation.Valid;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
+
+import static com.github.yildizmy.common.Constants.NOT_VALIDATED_INGREDIENT;
+import static com.github.yildizmy.common.Constants.SUCCESS;
 
 @Validated
 @RestController
@@ -38,7 +40,7 @@ public class RecipeController {
     @GetMapping("/recipes/{id}")
     public ResponseEntity<ApiResponse<RecipeResponse>> findById(@PathVariable long id) {
         final RecipeResponse response = recipeService.findById(id);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), Constants.SUCCESS, response));
+        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 
     /**
@@ -50,7 +52,7 @@ public class RecipeController {
     @GetMapping("/recipes")
     public ResponseEntity<ApiResponse<Page<RecipeResponse>>> findAll(@RequestBody SearchRequest request) {
         final Page<RecipeResponse> response = recipeService.findAll(request);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), Constants.SUCCESS, response));
+        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 
     /**
@@ -62,7 +64,7 @@ public class RecipeController {
     @GetMapping("/recipes/search")
     public ResponseEntity<ApiResponse<List<RecipeResponse>>> search(@RequestBody RecipeSearchRequest request) {
         final List<RecipeResponse> response = recipeService.search(request);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), Constants.SUCCESS, response));
+        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 
     /**
@@ -71,9 +73,9 @@ public class RecipeController {
      * @return id of the created recipe
      */
     @PostMapping("/recipes")
-    public ResponseEntity<ApiResponse<CommandResponse>> create(@Valid @ValidIngredient(message = Constants.NOT_VALIDATED_INGREDIENT) @RequestBody RecipeRequest request) {
+    public ResponseEntity<ApiResponse<CommandResponse>> create(@Valid @ValidIngredient(message = NOT_VALIDATED_INGREDIENT) @RequestBody RecipeRequest request) {
         final CommandResponse response = recipeService.create(request);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), Constants.SUCCESS, response));
+        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 
     /**
@@ -82,9 +84,9 @@ public class RecipeController {
      * @return id of the updated recipe
      */
     @PutMapping("/recipes")
-    public ResponseEntity<ApiResponse<CommandResponse>> update(@Valid @ValidIngredient(message = Constants.NOT_VALIDATED_INGREDIENT) @RequestBody RecipeRequest request) {
+    public ResponseEntity<ApiResponse<CommandResponse>> update(@Valid @ValidIngredient(message = NOT_VALIDATED_INGREDIENT) @RequestBody RecipeRequest request) {
         final CommandResponse response = recipeService.update(request);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), Constants.SUCCESS, response));
+        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 
     /**
@@ -95,6 +97,6 @@ public class RecipeController {
     @DeleteMapping("/recipes/{id}")
     public ResponseEntity<ApiResponse<CommandResponse>> deleteById(@PathVariable long id) {
         final CommandResponse response = recipeService.deleteById(id);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), Constants.SUCCESS, response));
+        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 }
