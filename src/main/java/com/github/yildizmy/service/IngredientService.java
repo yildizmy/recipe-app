@@ -1,23 +1,23 @@
 package com.github.yildizmy.service;
 
-import com.github.yildizmy.common.Constants;
 import com.github.yildizmy.common.filter.SearchRequest;
 import com.github.yildizmy.common.filter.SearchSpecification;
-import com.github.yildizmy.dto.response.CommandResponse;
-import com.github.yildizmy.exception.NoSuchElementFoundException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import com.github.yildizmy.dto.mapper.IngredientRequestMapper;
 import com.github.yildizmy.dto.request.IngredientRequest;
+import com.github.yildizmy.dto.response.CommandResponse;
 import com.github.yildizmy.dto.response.IngredientResponse;
 import com.github.yildizmy.exception.ElementAlreadyExistsException;
+import com.github.yildizmy.exception.NoSuchElementFoundException;
 import com.github.yildizmy.model.Ingredient;
 import com.github.yildizmy.repository.IngredientRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.github.yildizmy.common.Constants.*;
 import static org.apache.commons.text.WordUtils.capitalizeFully;
 
 /**
@@ -40,8 +40,8 @@ public class IngredientService {
         return ingredientRepository.findById(id)
                 .map(IngredientResponse::new)
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_INGREDIENT);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_INGREDIENT);
+                    log.error(NOT_FOUND_INGREDIENT);
+                    return new NoSuchElementFoundException(NOT_FOUND_INGREDIENT);
                 });
     }
 
@@ -58,8 +58,8 @@ public class IngredientService {
         final Page<IngredientResponse> ingredients = ingredientRepository.findAll(specification, pageable)
                 .map(IngredientResponse::new);
         if (ingredients.isEmpty()) {
-            log.error(Constants.NOT_FOUND_RECORD);
-            throw new NoSuchElementFoundException(Constants.NOT_FOUND_RECORD);
+            log.error(NOT_FOUND_RECORD);
+            throw new NoSuchElementFoundException(NOT_FOUND_RECORD);
         }
         return ingredients;
     }
@@ -72,8 +72,8 @@ public class IngredientService {
      */
     public CommandResponse create(IngredientRequest request) {
         if (ingredientRepository.existsByNameIgnoreCase(request.getName())) {
-            log.error(Constants.ALREADY_EXISTS_INGREDIENT);
-            throw new ElementAlreadyExistsException(Constants.ALREADY_EXISTS_INGREDIENT);
+            log.error(ALREADY_EXISTS_INGREDIENT);
+            throw new ElementAlreadyExistsException(ALREADY_EXISTS_INGREDIENT);
         }
         final Ingredient ingredient = IngredientRequestMapper.mapToEntity(request);
         ingredientRepository.save(ingredient);
@@ -89,13 +89,13 @@ public class IngredientService {
     public CommandResponse update(IngredientRequest request) {
         final Ingredient ingredient = ingredientRepository.findById(request.getId())
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_INGREDIENT);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_INGREDIENT);
+                    log.error(NOT_FOUND_INGREDIENT);
+                    return new NoSuchElementFoundException(NOT_FOUND_INGREDIENT);
                 });
 
         if (ingredientRepository.existsByNameIgnoreCase(request.getName())) {
-            log.error(Constants.ALREADY_EXISTS_INGREDIENT);
-            throw new ElementAlreadyExistsException(Constants.ALREADY_EXISTS_INGREDIENT);
+            log.error(ALREADY_EXISTS_INGREDIENT);
+            throw new ElementAlreadyExistsException(ALREADY_EXISTS_INGREDIENT);
         }
         ingredient.setName(capitalizeFully(request.getName()));
         ingredientRepository.save(ingredient);
@@ -111,8 +111,8 @@ public class IngredientService {
     public CommandResponse deleteById(Long id) {
         final Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_INGREDIENT);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_INGREDIENT);
+                    log.error(NOT_FOUND_INGREDIENT);
+                    return new NoSuchElementFoundException(NOT_FOUND_INGREDIENT);
                 });
         ingredientRepository.delete(ingredient);
         return CommandResponse.builder().id(id).build();
