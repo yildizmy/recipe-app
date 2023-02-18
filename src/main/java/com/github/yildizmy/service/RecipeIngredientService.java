@@ -15,7 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.github.yildizmy.common.Constants.*;
+import static com.github.yildizmy.common.Constants.ALREADY_EXISTS_INGREDIENT;
+import static com.github.yildizmy.common.Constants.NOT_FOUND_INGREDIENT;
 
 /**
  * Service used for adding and removing recipeIngredient
@@ -41,14 +42,14 @@ public class RecipeIngredientService {
             // check if the ingredient is already defined for the recipe
             if (recipeIngredientRepository.existsByRecipeIdAndIngredientId(request.getRecipeId(), request.getIngredientId())) {
                 log.error(ALREADY_EXISTS_INGREDIENT);
-                throw new ElementAlreadyExistsException(ALREADY_EXISTS_INGREDIENT + ". IngredientId: " + request.getIngredientId());
+                throw new ElementAlreadyExistsException(String.format(ALREADY_EXISTS_INGREDIENT, request.getIngredientId()));
             }
             ingredient = new Ingredient(request.getIngredientId());
         } else {
             // check if the new ingredient is already defined before
             if (ingredientRepository.existsByNameIgnoreCase(request.getIngredientName())) {
                 log.error(ALREADY_EXISTS_INGREDIENT);
-                throw new ElementAlreadyExistsException(ALREADY_EXISTS_INGREDIENT + ". IngredientName: " + request.getIngredientName());
+                throw new ElementAlreadyExistsException(String.format(ALREADY_EXISTS_INGREDIENT, request.getIngredientId()));
             }
             ingredient = ingredientRepository.save(new Ingredient(0L, request.getIngredientName()));
         }
