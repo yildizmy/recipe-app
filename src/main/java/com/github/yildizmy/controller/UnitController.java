@@ -1,6 +1,5 @@
 package com.github.yildizmy.controller;
 
-import com.github.yildizmy.common.Constants;
 import com.github.yildizmy.common.filter.SearchRequest;
 import com.github.yildizmy.dto.request.UnitRequest;
 import com.github.yildizmy.dto.response.ApiResponse;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.Clock;
 import java.time.Instant;
+
+import static com.github.yildizmy.common.Constants.SUCCESS;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -33,7 +34,7 @@ public class UnitController {
     @GetMapping("/units/{id}")
     public ResponseEntity<ApiResponse<UnitResponse>> findById(@PathVariable long id) {
         final UnitResponse response = unitService.findById(id);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), Constants.SUCCESS, response));
+        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 
     /**
@@ -45,7 +46,7 @@ public class UnitController {
     @GetMapping("/units")
     public ResponseEntity<ApiResponse<Page<UnitResponse>>> findAll(@RequestBody SearchRequest request) {
         final Page<UnitResponse> response = unitService.findAll(request);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), Constants.SUCCESS, response));
+        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 
     /**
@@ -56,7 +57,7 @@ public class UnitController {
     @PostMapping("/units")
     public ResponseEntity<ApiResponse<CommandResponse>> create(@Valid @RequestBody UnitRequest request) {
         final CommandResponse response = unitService.create(request);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), Constants.SUCCESS, response));
+        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 
     /**
@@ -67,7 +68,7 @@ public class UnitController {
     @PutMapping("/units")
     public ResponseEntity<ApiResponse<CommandResponse>> update(@Valid @RequestBody UnitRequest request) {
         final CommandResponse response = unitService.update(request);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), Constants.SUCCESS, response));
+        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 
     /**
@@ -78,6 +79,6 @@ public class UnitController {
     @DeleteMapping("/units/{id}")
     public ResponseEntity<ApiResponse<CommandResponse>> deleteById(@PathVariable long id) {
         final CommandResponse response = unitService.deleteById(id);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), Constants.SUCCESS, response));
+        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 }
