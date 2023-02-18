@@ -1,6 +1,5 @@
 package com.github.yildizmy.service;
 
-import com.github.yildizmy.common.Constants;
 import com.github.yildizmy.common.filter.SearchRequest;
 import com.github.yildizmy.common.filter.SearchSpecification;
 import com.github.yildizmy.dto.mapper.CategoryRequestMapper;
@@ -18,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.github.yildizmy.common.Constants.*;
 import static org.apache.commons.text.WordUtils.capitalizeFully;
 
 /**
@@ -40,8 +40,8 @@ public class CategoryService {
         return categoryRepository.findById(id)
                 .map(CategoryResponse::new)
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_CATEGORY);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_CATEGORY);
+                    log.error(NOT_FOUND_CATEGORY);
+                    return new NoSuchElementFoundException(NOT_FOUND_CATEGORY);
                 });
     }
 
@@ -58,8 +58,8 @@ public class CategoryService {
         final Page<CategoryResponse> categories = categoryRepository.findAll(specification, pageable)
                 .map(CategoryResponse::new);
         if (categories.isEmpty()) {
-            log.error(Constants.NOT_FOUND_RECORD);
-            throw new NoSuchElementFoundException(Constants.NOT_FOUND_RECORD);
+            log.error(NOT_FOUND_RECORD);
+            throw new NoSuchElementFoundException(NOT_FOUND_RECORD);
         }
         return categories;
     }
@@ -72,8 +72,8 @@ public class CategoryService {
      */
     public CommandResponse create(CategoryRequest request) {
         if (categoryRepository.existsByNameIgnoreCase(request.getName())) {
-            log.error(Constants.ALREADY_EXISTS_CATEGORY);
-            throw new ElementAlreadyExistsException(Constants.ALREADY_EXISTS_CATEGORY);
+            log.error(ALREADY_EXISTS_CATEGORY);
+            throw new ElementAlreadyExistsException(ALREADY_EXISTS_CATEGORY);
         }
         final Category category = CategoryRequestMapper.mapToEntity(request);
         categoryRepository.save(category);
@@ -89,13 +89,13 @@ public class CategoryService {
     public CommandResponse update(CategoryRequest request) {
         final Category category = categoryRepository.findById(request.getId())
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_CATEGORY);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_CATEGORY);
+                    log.error(NOT_FOUND_CATEGORY);
+                    return new NoSuchElementFoundException(NOT_FOUND_CATEGORY);
                 });
 
         if (categoryRepository.existsByNameIgnoreCase(request.getName())) {
-            log.error(Constants.ALREADY_EXISTS_CATEGORY);
-            throw new ElementAlreadyExistsException(Constants.ALREADY_EXISTS_CATEGORY);
+            log.error(ALREADY_EXISTS_CATEGORY);
+            throw new ElementAlreadyExistsException(ALREADY_EXISTS_CATEGORY);
         }
         category.setName(capitalizeFully(request.getName()));
         categoryRepository.save(category);
@@ -111,8 +111,8 @@ public class CategoryService {
     public CommandResponse deleteById(Long id) {
         final Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> {
-                    log.error(Constants.NOT_FOUND_CATEGORY);
-                    return new NoSuchElementFoundException(Constants.NOT_FOUND_CATEGORY);
+                    log.error(NOT_FOUND_CATEGORY);
+                    return new NoSuchElementFoundException(NOT_FOUND_CATEGORY);
                 });
         categoryRepository.delete(category);
         return CommandResponse.builder().id(id).build();
