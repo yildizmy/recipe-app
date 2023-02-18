@@ -1,13 +1,12 @@
 package com.github.yildizmy.validator;
 
-import com.github.yildizmy.common.Constants;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static com.github.yildizmy.common.Constants.NOT_VALIDATED_ELEMENT;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -20,7 +19,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {IngredientValidator.class})
 public @interface ValidIngredient {
 
-    String message() default Constants.NOT_VALIDATED_ELEMENT;
+    String message() default NOT_VALIDATED_ELEMENT;
 
     Class<?>[] groups() default {};
 
