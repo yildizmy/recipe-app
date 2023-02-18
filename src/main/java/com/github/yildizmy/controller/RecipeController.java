@@ -73,7 +73,8 @@ public class RecipeController {
      * @return id of the created recipe
      */
     @PostMapping("/recipes")
-    public ResponseEntity<ApiResponse<CommandResponse>> create(@Valid @ValidIngredient(message = NOT_VALIDATED_INGREDIENT) @RequestBody RecipeRequest request) {
+    public ResponseEntity<ApiResponse<CommandResponse>> create(
+            @Valid @ValidIngredient(message = NOT_VALIDATED_INGREDIENT) @RequestBody RecipeRequest request) {
         final CommandResponse response = recipeService.create(request);
         return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
@@ -84,7 +85,8 @@ public class RecipeController {
      * @return id of the updated recipe
      */
     @PutMapping("/recipes")
-    public ResponseEntity<ApiResponse<CommandResponse>> update(@Valid @ValidIngredient(message = NOT_VALIDATED_INGREDIENT) @RequestBody RecipeRequest request) {
+    public ResponseEntity<ApiResponse<CommandResponse>> update(
+            @Valid @ValidIngredient(message = NOT_VALIDATED_INGREDIENT) @RequestBody RecipeRequest request) {
         final CommandResponse response = recipeService.update(request);
         return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
