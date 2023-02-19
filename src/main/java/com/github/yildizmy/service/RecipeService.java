@@ -5,7 +5,9 @@ import com.github.yildizmy.common.filter.SearchSpecification;
 import com.github.yildizmy.dto.mapper.RecipeRequestMapper;
 import com.github.yildizmy.dto.request.RecipeRequest;
 import com.github.yildizmy.dto.request.RecipeSearchRequest;
+import com.github.yildizmy.dto.response.CategoryResponse;
 import com.github.yildizmy.dto.response.CommandResponse;
+import com.github.yildizmy.dto.response.RecipeIngredientResponse;
 import com.github.yildizmy.dto.response.RecipeResponse;
 import com.github.yildizmy.exception.ElementAlreadyExistsException;
 import com.github.yildizmy.exception.NoSuchElementFoundException;
@@ -48,7 +50,10 @@ public class RecipeService {
     @Transactional(readOnly = true)
     public RecipeResponse findById(Long id) {
         return recipeRepository.findById(id)
-                .map(RecipeResponse::new)
+                .map(recipe -> new RecipeResponse(
+                        recipe,
+                        new CategoryResponse(recipe.getCategory()),
+                        recipe.getRecipeIngredients().stream().map(RecipeIngredientResponse::new).toList()))
                 .orElseThrow(() -> {
                     log.error(NOT_FOUND_RECIPE);
                     return new NoSuchElementFoundException(NOT_FOUND_RECIPE);
@@ -66,7 +71,10 @@ public class RecipeService {
         final SearchSpecification<Recipe> specification = new SearchSpecification<>(request);
         final Pageable pageable = SearchSpecification.getPageable(request.getPage(), request.getSize());
         final Page<RecipeResponse> recipes = recipeRepository.findAll(specification, pageable)
-                .map(RecipeResponse::new);
+                .map(recipe -> new RecipeResponse(
+                        recipe,
+                        new CategoryResponse(recipe.getCategory()),
+                        recipe.getRecipeIngredients().stream().map(RecipeIngredientResponse::new).toList()));
         if (recipes.isEmpty()) {
             log.error(NOT_FOUND_RECORD);
             throw new NoSuchElementFoundException(NOT_FOUND_RECORD);
@@ -88,7 +96,11 @@ public class RecipeService {
                         request.getIngredientIn(),
                         request.getIngredientEx(),
                         request.getText()).stream()
-                .map(RecipeResponse::new).toList();
+                .map(recipe -> new RecipeResponse(
+                        recipe,
+                        new CategoryResponse(recipe.getCategory()),
+                        recipe.getRecipeIngredients().stream().map(RecipeIngredientResponse::new).toList()))
+                .toList();
         if (recipes.isEmpty()) {
             log.error(NOT_FOUND_RECORD);
             throw new NoSuchElementFoundException(NOT_FOUND_RECORD);

@@ -1,7 +1,7 @@
 package com.github.yildizmy.dto.response;
 
-import lombok.Data;
 import com.github.yildizmy.model.Recipe;
+import lombok.Data;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class RecipeResponse {
     private CategoryResponse category;
     private List<RecipeIngredientResponse> ingredients;
 
-    public RecipeResponse(Recipe recipe) {
+    public RecipeResponse(Recipe recipe, CategoryResponse category, List<RecipeIngredientResponse> ingredients) {
         this.id = recipe.getId();
         this.title = recipe.getTitle();
         this.description = recipe.getDescription();
@@ -33,7 +33,7 @@ public class RecipeResponse {
         this.instructions = recipe.getInstructions();
         this.difficulty = recipe.getDifficulty().getLabel();
         this.healthLabel = recipe.getHealthLabel().getLabel();
-        this.category = new CategoryResponse(recipe.getCategory());
-        this.ingredients = recipe.getRecipeIngredients().stream().map(RecipeIngredientResponse::new).toList();
+        this.category = category;
+        this.ingredients = ingredients;
     }
 }
