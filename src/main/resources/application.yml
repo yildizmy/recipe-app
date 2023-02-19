@@ -7,7 +7,7 @@ spring:
   main:
     banner-mode: off
   jackson:
-    date-format: "dd.mm.yyyy"
+    date-format: "dd.MM.yyyy"
   # Database properties
   datasource:
     driver-class-name: org.postgresql.Driver
