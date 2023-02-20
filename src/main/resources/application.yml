@@ -16,6 +16,7 @@ spring:
     password: ${DB_PASSWORD}
   flyway:
     enabled: true
+    placeholderReplacement: false
   # JPA properties
   jpa:
     hibernate:
