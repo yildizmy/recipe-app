@@ -28,7 +28,7 @@ git clone https://github.com/yildizmy/recipe-api.git
 ```
 <br/>
 
-2. Select _Run > Edit Configurations_ and add the following variables to the Environment variables field after updating them with the same values as in the `.env` file.
+2. Open project using IntelliJ IDEA, select _Run > Edit Configurations_ and add the following parameters to the Environment variables field (these values should be same as the values as in the `.env` file).
 
 ```
 DB_NAME=recipe;DB_USERNAME=postgres;DB_PASSWORD=pass
