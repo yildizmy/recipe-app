@@ -100,14 +100,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * Build error message by the given exception, status and request
      *
      * @param ex
-     * @param httpStatus
+     * @param status
      * @param request
      * @return ResponseEntity<Object> with detailed information related to the error
      */
     private ResponseEntity<Object> buildErrorResponse(Exception ex,
-                                                      HttpStatus httpStatus,
+                                                      HttpStatus status,
                                                       WebRequest request) {
-        return buildErrorResponse(ex, ex.getMessage(), httpStatus, request);
+        return buildErrorResponse(ex, ex.getMessage(), status, request);
     }
 
     /**
@@ -115,19 +115,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      *
      * @param ex
      * @param message
-     * @param httpStatus
+     * @param status
      * @param request
      * @return ResponseEntity<Object> with detailed information related to the error
      */
     private ResponseEntity<Object> buildErrorResponse(Exception ex,
                                                       String message,
-                                                      HttpStatus httpStatus,
+                                                      HttpStatus status,
                                                       WebRequest request) {
-        ErrorResponse errorResponse = new ErrorResponse(httpStatus.value(), message);
+        ErrorResponse errorResponse = new ErrorResponse(status.value(), message);
         if (printStackTrace && isTraceOn(request)) {
             errorResponse.setStackTrace(ExceptionUtils.getStackTrace(ex));
         }
-        return ResponseEntity.status(httpStatus).body(errorResponse);
+        return ResponseEntity.status(status).body(errorResponse);
     }
 
     /**
