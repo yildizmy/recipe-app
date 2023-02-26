@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Configuration file used to configure the application
+ */
 @Configuration
 public class AppConfig {
 
