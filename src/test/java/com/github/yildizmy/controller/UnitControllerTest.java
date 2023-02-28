@@ -195,10 +195,7 @@ class UnitControllerTest {
         MockMvcBuilders.standaloneSetup(unitController)
                 .build()
                 .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content()
-                        .string("{\"timestamp\":1640995200000,\"message\":\"Success\",\"data\":{\"id\":123}}"));
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 
     /**
