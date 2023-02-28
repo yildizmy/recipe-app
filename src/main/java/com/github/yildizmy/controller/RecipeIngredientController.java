@@ -43,9 +43,11 @@ public class RecipeIngredientController {
      * @return id of the recipe from which ingredient is removed
      */
     @DeleteMapping("/recipeIngredients/recipes/{recipeId}/ingredients/{ingredientId}")
-    public ResponseEntity<ApiResponse<CommandResponse>> removeIngredientFromRecipe(
+    public ResponseEntity<ApiResponse<Void>> removeIngredientFromRecipe(
             @PathVariable long recipeId, @PathVariable long ingredientId) {
-        final CommandResponse response = recipeIngredientService.removeIngredientFromRecipe(recipeId, ingredientId);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
+        recipeIngredientService.removeIngredientFromRecipe(recipeId, ingredientId);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 }

@@ -69,13 +69,12 @@ public class RecipeIngredientService {
      * @param ingredientId
      * @return
      */
-    public CommandResponse removeIngredientFromRecipe(Long recipeId, Long ingredientId) {
+    public void removeIngredientFromRecipe(Long recipeId, Long ingredientId) {
         final RecipeIngredient recipeIngredient = recipeIngredientRepository.findByRecipeIdAndIngredientId(recipeId, ingredientId)
                 .orElseThrow(() -> {
                     log.error(NOT_FOUND_INGREDIENT);
                     return new NoSuchElementFoundException(NOT_FOUND_INGREDIENT);
                 });
         recipeIngredientRepository.delete(recipeIngredient);
-        return CommandResponse.builder().id(recipeId).build();
     }
 }
