@@ -111,7 +111,7 @@ class RecipeIngredientControllerTest {
         MockMvcBuilders.standaloneSetup(recipeIngredientController)
                 .build()
                 .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(
                         MockMvcResultMatchers.content().string("{\"timestamp\":1640995200000,\"message\":\"Success\",\"data\":{\"id\":123}}"));
