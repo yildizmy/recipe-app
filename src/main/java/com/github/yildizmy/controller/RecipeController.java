@@ -100,8 +100,10 @@ public class RecipeController {
      * @return id of the deleted recipe
      */
     @DeleteMapping("/recipes/{id}")
-    public ResponseEntity<ApiResponse<CommandResponse>> deleteById(@PathVariable long id) {
-        final CommandResponse response = recipeService.deleteById(id);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
+    public ResponseEntity<ApiResponse<Void>> deleteById(@PathVariable long id) {
+        recipeService.deleteById(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 }

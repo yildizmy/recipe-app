@@ -192,13 +192,12 @@ public class RecipeService {
      * @param id
      * @return
      */
-    public CommandResponse deleteById(Long id) {
+    public void deleteById(Long id) {
         final Recipe recipe = recipeRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error(NOT_FOUND_RECIPE);
                     return new NoSuchElementFoundException(NOT_FOUND_RECIPE);
                 });
         recipeRepository.delete(recipe);
-        return CommandResponse.builder().id(id).build();
     }
 }
