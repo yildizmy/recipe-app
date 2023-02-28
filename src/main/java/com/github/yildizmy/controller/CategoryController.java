@@ -80,8 +80,10 @@ public class CategoryController {
      * @return id of the deleted category
      */
     @DeleteMapping("/categories/{id}")
-    public ResponseEntity<ApiResponse<CommandResponse>> deleteById(@PathVariable long id) {
-        final CommandResponse response = categoryService.deleteById(id);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
+    public ResponseEntity<ApiResponse<Void>> deleteById(@PathVariable long id) {
+        categoryService.deleteById(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 }

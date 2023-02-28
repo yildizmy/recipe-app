@@ -108,13 +108,12 @@ public class CategoryService {
      * @param id
      * @return
      */
-    public CommandResponse deleteById(Long id) {
+    public void deleteById(Long id) {
         final Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error(NOT_FOUND_CATEGORY);
                     return new NoSuchElementFoundException(NOT_FOUND_CATEGORY);
                 });
         categoryRepository.delete(category);
-        return CommandResponse.builder().id(id).build();
     }
 }
