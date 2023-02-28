@@ -80,8 +80,10 @@ public class UnitController {
      * @return id of the deleted unit
      */
     @DeleteMapping("/units/{id}")
-    public ResponseEntity<ApiResponse<CommandResponse>> deleteById(@PathVariable long id) {
-        final CommandResponse response = unitService.deleteById(id);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
+    public ResponseEntity<ApiResponse<Void>> deleteById(@PathVariable long id) {
+        unitService.deleteById(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
     }
 }

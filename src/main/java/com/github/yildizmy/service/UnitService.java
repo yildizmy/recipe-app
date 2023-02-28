@@ -108,13 +108,12 @@ public class UnitService {
      * @param id
      * @return
      */
-    public CommandResponse deleteById(Long id) {
+    public void deleteById(Long id) {
         final Unit unit = unitRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error(NOT_FOUND_UNIT);
                     return new NoSuchElementFoundException(NOT_FOUND_UNIT);
                 });
         unitRepository.delete(unit);
-        return CommandResponse.builder().id(id).build();
     }
 }
