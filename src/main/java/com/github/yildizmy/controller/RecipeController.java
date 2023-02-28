@@ -10,6 +10,7 @@ import com.github.yildizmy.service.RecipeService;
 import com.github.yildizmy.validator.ValidIngredient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -76,7 +77,9 @@ public class RecipeController {
     public ResponseEntity<ApiResponse<CommandResponse>> create(
             @Valid @ValidIngredient(message = NOT_VALIDATED_INGREDIENT) @RequestBody RecipeRequest request) {
         final CommandResponse response = recipeService.create(request);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 
     /**
