@@ -8,6 +8,7 @@ import com.github.yildizmy.dto.response.UnitResponse;
 import com.github.yildizmy.service.UnitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,7 +58,9 @@ public class UnitController {
     @PostMapping("/units")
     public ResponseEntity<ApiResponse<CommandResponse>> create(@Valid @RequestBody UnitRequest request) {
         final CommandResponse response = unitService.create(request);
-        return ResponseEntity.ok(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new ApiResponse<>(Instant.now(clock).toEpochMilli(), SUCCESS, response));
     }
 
     /**
