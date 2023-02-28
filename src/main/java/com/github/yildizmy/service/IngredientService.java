@@ -108,13 +108,12 @@ public class IngredientService {
      * @param id
      * @return
      */
-    public CommandResponse deleteById(Long id) {
+    public void deleteById(Long id) {
         final Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error(NOT_FOUND_INGREDIENT);
                     return new NoSuchElementFoundException(NOT_FOUND_INGREDIENT);
                 });
         ingredientRepository.delete(ingredient);
-        return CommandResponse.builder().id(id).build();
     }
 }
