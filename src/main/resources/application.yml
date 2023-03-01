@@ -6,6 +6,9 @@ spring:
     name: recipe-api
   main:
     banner-mode: off
+  output:
+    ansi:
+      enabled: always
   jackson:
     date-format: "dd.MM.yyyy"
   # Database properties
@@ -41,12 +44,12 @@ spring:
 # logger configuration
 logging:
   pattern:
-    console: "%d %-5level %logger : %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){blue} %clr(%-5p) %clr(${PID}){faint} %clr(---){faint} %clr([%8.15t]){faint} %clr(%-40.40logger{0}){cyan} %clr(:){faint} %clr(%m){faint}%n'
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
   level:
+    com.your-company: debug
     org.springframework: error
     org.hibernate: error
-    com.github.yildizmy: debug
   file:
     name: './logs/application.log'
 
