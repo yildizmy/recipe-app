@@ -5,7 +5,7 @@ spring:
   application:
     name: recipe-app
   main:
-    banner-mode: off
+    banner-mode: console
   output:
     ansi:
       enabled: always
