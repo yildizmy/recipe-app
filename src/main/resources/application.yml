@@ -3,7 +3,7 @@ spring:
   profiles:
     active: production
   application:
-    name: recipe-api
+    name: recipe-app
   main:
     banner-mode: off
   output:

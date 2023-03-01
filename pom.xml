@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.github.yildizmy</groupId>
-    <artifactId>recipe-api</artifactId>
+    <artifactId>recipe-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>recipe-api</name>
+    <name>recipe-app</name>
     <description>Spring Boot app allowing users to manage their favorite recipes</description>
     <properties>
         <java.version>17</java.version>
