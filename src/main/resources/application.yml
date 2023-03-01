@@ -6,6 +6,8 @@ spring:
     name: recipe-app
   main:
     banner-mode: console
+  banner:
+    location: classpath:/banner.txt
   output:
     ansi:
       enabled: always
