@@ -10,7 +10,7 @@ import java.time.Clock;
  * that returns the current instant using the best available system clock
  */
 @Configuration
-public class ClockConfiguration {
+public class ClockConfig {
 
     @Bean
     public Clock clock() {
