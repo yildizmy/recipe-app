@@ -1,6 +1,8 @@
 package com.github.yildizmy.service;
 
 import com.github.yildizmy.common.filter.SearchRequest;
+import com.github.yildizmy.dto.mapper.RecipeRequestMapper;
+import com.github.yildizmy.dto.mapper.RecipeRequestMapperImpl;
 import com.github.yildizmy.dto.request.RecipeIngredientRequest;
 import com.github.yildizmy.dto.request.RecipeRequest;
 import com.github.yildizmy.dto.request.RecipeSearchRequest;
@@ -17,10 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -57,6 +56,9 @@ class RecipeServiceTest {
 
     @Mock
     private UnitRepository unitRepository;
+
+    @Spy
+    public RecipeRequestMapper recipeRequestMapper = new RecipeRequestMapperImpl();
 
     @Captor
     private ArgumentCaptor<Recipe> recipeCaptor;

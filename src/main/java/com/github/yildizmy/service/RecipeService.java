@@ -40,6 +40,7 @@ public class RecipeService {
     private final CategoryRepository categoryRepository;
     private final IngredientRepository ingredientRepository;
     private final UnitRepository unitRepository;
+    private final RecipeRequestMapper recipeRequestMapper;
 
     /**
      * Fetches a recipe by the given id
@@ -121,7 +122,7 @@ public class RecipeService {
                     log.error(NOT_FOUND_CATEGORY);
                     return new NoSuchElementFoundException(NOT_FOUND_CATEGORY);
                 });
-        final Recipe recipe = RecipeRequestMapper.mapToEntity(request);
+        final Recipe recipe = recipeRequestMapper.toEntity(request);
         recipe.setCategory(category);
 
         request.getRecipeIngredients().stream()

@@ -2,34 +2,26 @@ package com.github.yildizmy.dto.mapper;
 
 import com.github.yildizmy.dto.request.RecipeRequest;
 import com.github.yildizmy.model.Recipe;
-
-import static org.apache.commons.text.WordUtils.capitalizeFully;
+import org.apache.commons.text.WordUtils;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
 /**
  * Mapper for RecipeRequest
  */
-public class RecipeRequestMapper {
+@Mapper(componentModel = "spring")
+public interface RecipeRequestMapper {
 
-    private RecipeRequestMapper() {
-    }
+    RecipeRequestMapper MAPPER = Mappers.getMapper(RecipeRequestMapper.class);
 
-    /**
-     * Maps RecipeRequest fields to a new Recipe
-     *
-     * @param request
-     * @return Recipe model
-     */
-    public static Recipe mapToEntity(RecipeRequest request) {
-        return new Recipe(
-                request.getId(),
-                capitalizeFully(request.getTitle()),
-                request.getDescription(),
-                request.getPrepTime(),
-                request.getCookTime(),
-                request.getServings(),
-                request.getInstructions(),
-                request.getDifficulty(),
-                request.getHealthLabel()
-        );
+    Recipe toEntity(RecipeRequest dto);
+
+    RecipeRequest toDto(Recipe entity);
+
+    @AfterMapping
+    default void getCapitalizedTitle(@MappingTarget Recipe entity, RecipeRequest dto) {
+        entity.setTitle(WordUtils.capitalizeFully(dto.getTitle()));
     }
 }

@@ -14,9 +14,9 @@ class RecipeRequestMapperTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/data/recipes.csv")
-    void mapToEntity_should_return_RecipeEntity(Long id, String title, String description, Integer prepTime,
-                                                Integer cookTime, Integer servings, String instructions,
-                                                Difficulty difficulty, HealthLabel healthLabel) {
+    public void testMapDtoToEntity(Long id, String title, String description, Integer prepTime,
+                                   Integer cookTime, Integer servings, String instructions,
+                                   Difficulty difficulty, HealthLabel healthLabel) {
         RecipeRequest request = new RecipeRequest();
         request.setId(id);
         request.setTitle(title);
@@ -28,16 +28,16 @@ class RecipeRequestMapperTest {
         request.setDifficulty(difficulty);
         request.setHealthLabel(healthLabel);
 
-        Recipe result = RecipeRequestMapper.mapToEntity(request);
+        Recipe recipe = RecipeRequestMapper.MAPPER.toEntity(request);
 
-        assertEquals(id, result.getId());
-        assertEquals(capitalizeFully(title), result.getTitle());
-        assertEquals(description, result.getDescription());
-        assertEquals(prepTime, result.getPrepTime());
-        assertEquals(cookTime, result.getCookTime());
-        assertEquals(servings, result.getServings());
-        assertEquals(instructions, result.getInstructions());
-        assertEquals(difficulty, result.getDifficulty());
-        assertEquals(healthLabel, result.getHealthLabel());
+        assertEquals(id, recipe.getId());
+        assertEquals(capitalizeFully(title), recipe.getTitle());
+        assertEquals(description, recipe.getDescription());
+        assertEquals(prepTime, recipe.getPrepTime());
+        assertEquals(cookTime, recipe.getCookTime());
+        assertEquals(servings, recipe.getServings());
+        assertEquals(instructions, recipe.getInstructions());
+        assertEquals(difficulty, recipe.getDifficulty());
+        assertEquals(healthLabel, recipe.getHealthLabel());
     }
 }
