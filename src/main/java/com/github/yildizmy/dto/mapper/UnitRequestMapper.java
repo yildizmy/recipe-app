@@ -2,27 +2,26 @@ package com.github.yildizmy.dto.mapper;
 
 import com.github.yildizmy.dto.request.UnitRequest;
 import com.github.yildizmy.model.Unit;
-
-import static org.apache.commons.text.WordUtils.capitalizeFully;
+import org.apache.commons.text.WordUtils;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
 /**
  * Mapper for UnitRequest
  */
-public class UnitRequestMapper {
+@Mapper(componentModel = "spring")
+public interface UnitRequestMapper {
 
-    private UnitRequestMapper() {
-    }
+    UnitRequestMapper MAPPER = Mappers.getMapper(UnitRequestMapper.class);
 
-    /**
-     * Maps UnitRequest fields to a new Unit
-     *
-     * @param request
-     * @return Unit model
-     */
-    public static Unit mapToEntity(UnitRequest request) {
-        return new Unit(
-                request.getId(),
-                capitalizeFully(request.getName())
-        );
+    Unit toEntity(UnitRequest dto);
+
+    UnitRequest toDto(Unit entity);
+
+    @AfterMapping
+    default void capitalizeFully(@MappingTarget Unit entity, UnitRequest dto) {
+        entity.setName(WordUtils.capitalizeFully(dto.getName()));
     }
 }

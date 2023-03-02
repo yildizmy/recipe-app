@@ -29,6 +29,7 @@ import static org.apache.commons.text.WordUtils.capitalizeFully;
 public class UnitService {
 
     private final UnitRepository unitRepository;
+    private final UnitRequestMapper unitRequestMapper;
 
     /**
      * Fetches a unit by the given id
@@ -75,7 +76,7 @@ public class UnitService {
             log.error(ALREADY_EXISTS_UNIT);
             throw new ElementAlreadyExistsException(ALREADY_EXISTS_UNIT);
         }
-        final Unit unit = UnitRequestMapper.mapToEntity(request);
+        final Unit unit = unitRequestMapper.toEntity(request);
         unitRepository.save(unit);
         return CommandResponse.builder().id(unit.getId()).build();
     }
