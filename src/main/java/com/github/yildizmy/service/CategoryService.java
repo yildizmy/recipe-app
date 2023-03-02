@@ -29,6 +29,7 @@ import static org.apache.commons.text.WordUtils.capitalizeFully;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryRequestMapper categoryRequestMapper;
 
     /**
      * Fetches a category by the given id
@@ -75,7 +76,7 @@ public class CategoryService {
             log.error(ALREADY_EXISTS_CATEGORY);
             throw new ElementAlreadyExistsException(ALREADY_EXISTS_CATEGORY);
         }
-        final Category category = CategoryRequestMapper.mapToEntity(request);
+        final Category category = categoryRequestMapper.toEntity(request);
         categoryRepository.save(category);
         return CommandResponse.builder().id(category.getId()).build();
     }

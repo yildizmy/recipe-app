@@ -1,20 +1,19 @@
 package com.github.yildizmy.service;
 
-import com.github.yildizmy.dto.response.CategoryResponse;
-import com.github.yildizmy.model.Category;
 import com.github.yildizmy.common.filter.SearchRequest;
+import com.github.yildizmy.dto.mapper.CategoryRequestMapper;
+import com.github.yildizmy.dto.mapper.CategoryRequestMapperImpl;
 import com.github.yildizmy.dto.request.CategoryRequest;
+import com.github.yildizmy.dto.response.CategoryResponse;
 import com.github.yildizmy.exception.ElementAlreadyExistsException;
 import com.github.yildizmy.exception.NoSuchElementFoundException;
+import com.github.yildizmy.model.Category;
 import com.github.yildizmy.repository.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +40,9 @@ class CategoryServiceTest {
 
     @Mock
     private CategoryRepository categoryRepository;
+
+    @Spy
+    public CategoryRequestMapper categoryRequestMapper = new CategoryRequestMapperImpl();
 
     @Captor
     private ArgumentCaptor<Category> categoryCaptor;

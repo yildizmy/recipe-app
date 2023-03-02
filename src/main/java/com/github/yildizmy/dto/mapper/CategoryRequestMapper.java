@@ -2,28 +2,26 @@ package com.github.yildizmy.dto.mapper;
 
 import com.github.yildizmy.dto.request.CategoryRequest;
 import com.github.yildizmy.model.Category;
-
-import static org.apache.commons.text.WordUtils.capitalizeFully;
+import org.apache.commons.text.WordUtils;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 
 /**
  * Mapper for CategoryRequest
  */
-public class CategoryRequestMapper {
+@Mapper(componentModel = "spring")
+public interface CategoryRequestMapper {
 
-    private CategoryRequestMapper() {
-    }
+    CategoryRequestMapper MAPPER = Mappers.getMapper(CategoryRequestMapper.class);
 
-    /**
-     * Maps CategoryRequest fields to a new Category
-     *
-     * @param request
-     * @return Category model
-     */
-    public static Category mapToEntity(CategoryRequest request) {
-        return new Category(
-                request.getId(),
-                capitalizeFully(request.getName()),
-                request.getOrdinal()
-        );
+    Category toEntity(CategoryRequest dto);
+
+    CategoryRequest toDto(Category entity);
+
+    @AfterMapping
+    default void capitalizeFully(@MappingTarget Category entity, CategoryRequest dto) {
+        entity.setName(WordUtils.capitalizeFully(dto.getName()));
     }
 }
