@@ -44,15 +44,13 @@ public class RecipeIngredient {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (o == null || getClass() != o.getClass()) return false;
         RecipeIngredient that = (RecipeIngredient) o;
-        return Objects.equals(recipe, that.recipe) &&
-                Objects.equals(ingredient, that.ingredient);
+        return recipeIngredientId.equals(that.recipeIngredientId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(recipe, ingredient);
+        return Objects.hash(recipeIngredientId);
     }
 }
