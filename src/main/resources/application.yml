@@ -60,11 +60,10 @@ server:
   port: 8080
   # exception handling
   error:
-    include-stacktrace: on_param
-    include-exception: 'true'
-    include-binding-errors: always
     include-message: always
-
+    include-binding-errors: always
+    include-stacktrace: on_param
+    include-exception: false
 # custom properties
 exception:
   trace: true
