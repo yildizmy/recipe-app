@@ -45,6 +45,11 @@ spring:
 
 # logger configuration
 logging:
+  name: './logs/application.log'
+  max-size: 1MB # sets the maximum size of one file (if the file size gets exceeded a new file will be created)
+  total-size-cap: 10MB # sets the limit for the total size of all log files
+  max-history: 30 # sets the number of days the logs are kept (older files will be deleted, if clean-history-on-start is set to true)
+  clean-history-on-start: true
   pattern:
     console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){blue} %clr(%-5p) %clr(${PID}){faint} %clr(---){faint} %clr([%8.15t]){faint} %clr(%-40.40logger{0}){cyan} %clr(:){faint} %clr(%m){faint}%n'
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
@@ -52,8 +57,6 @@ logging:
     com.your-company: debug
     org.springframework: error
     org.hibernate: error
-  file:
-    name: './logs/application.log'
 
 # server configuration
 server:
