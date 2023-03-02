@@ -1,6 +1,8 @@
 package com.github.yildizmy.service;
 
 import com.github.yildizmy.common.filter.SearchRequest;
+import com.github.yildizmy.dto.mapper.IngredientRequestMapper;
+import com.github.yildizmy.dto.mapper.IngredientRequestMapperImpl;
 import com.github.yildizmy.dto.request.IngredientRequest;
 import com.github.yildizmy.dto.response.IngredientResponse;
 import com.github.yildizmy.exception.ElementAlreadyExistsException;
@@ -11,10 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +40,9 @@ class IngredientServiceTest {
 
     @Mock
     private IngredientRepository ingredientRepository;
+
+    @Spy
+    public IngredientRequestMapper ingredientRequestMapper = new IngredientRequestMapperImpl();
 
     @Captor
     private ArgumentCaptor<Ingredient> ingredientCaptor;

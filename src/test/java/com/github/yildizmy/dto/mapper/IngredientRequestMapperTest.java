@@ -2,24 +2,21 @@ package com.github.yildizmy.dto.mapper;
 
 import com.github.yildizmy.dto.request.IngredientRequest;
 import com.github.yildizmy.model.Ingredient;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.api.Test;
 
-import static org.apache.commons.text.WordUtils.capitalizeFully;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class IngredientRequestMapperTest {
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "/data/ingredients.csv")
-    void mapToEntity_should_return_IngredientEntity(Long id, String name) {
-        IngredientRequest request = new IngredientRequest(name);
-        request.setId(id);
-        request.setName(name);
+    @Test
+    public void testMapDtoToEntity() {
+        IngredientRequest request = new IngredientRequest();
+        request.setId(1L);
+        request.setName("Ingredient");
 
-        Ingredient result = IngredientRequestMapper.mapToEntity(request);
+        Ingredient ingredient = IngredientRequestMapper.MAPPER.toEntity(request);
 
-        assertEquals(id, result.getId());
-        assertEquals(capitalizeFully(name), result.getName());
+        assertEquals(ingredient.getId(), 1L);
+        assertEquals(ingredient.getName(), "Ingredient");
     }
 }

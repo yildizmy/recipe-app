@@ -29,6 +29,7 @@ import static org.apache.commons.text.WordUtils.capitalizeFully;
 public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
+    private final IngredientRequestMapper ingredientRequestMapper;
 
     /**
      * Fetches an ingredient by the given id
@@ -75,7 +76,7 @@ public class IngredientService {
             log.error(ALREADY_EXISTS_INGREDIENT);
             throw new ElementAlreadyExistsException(ALREADY_EXISTS_INGREDIENT);
         }
-        final Ingredient ingredient = IngredientRequestMapper.mapToEntity(request);
+        final Ingredient ingredient = ingredientRequestMapper.toEntity(request);
         ingredientRepository.save(ingredient);
         return CommandResponse.builder().id(ingredient.getId()).build();
     }
