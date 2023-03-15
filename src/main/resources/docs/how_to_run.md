@@ -21,14 +21,38 @@ The following apps and tools should be installed before running the application:
 
 In order to run the application in development mode, apply the following steps:
 
-1. Open command prompt window and clone the project from GitHub using the following command:
+
+1. Run Docker desktop.
+
+<br/>
+
+
+2. Open command prompt window and clone the project from GitHub using the following command:
 
 ```
 git clone https://github.com/yildizmy/recipe-app.git
 ```
 <br/>
 
-2. Open project using IntelliJ IDEA, select _Run > Edit Configurations_ and add the following parameters to the Environment variables field (these values should be same as the values as in the `.env` file).
+3. Change the current directory to the project directory where the `docker-compose.yml` file is in:
+
+```
+cd recipe-app
+```
+<br/>
+
+
+4. Run the following command:
+
+```
+docker-compose up -d
+```
+
+<br/>
+
+
+
+5. Open project using IntelliJ IDEA, select _Run > Edit Configurations_ and add the following parameters to the Environment variables field (these values should be same as the values as in the `.env` file).
 
 ```
 DB_NAME=recipe;DB_USERNAME=postgres;DB_PASSWORD=pass
@@ -39,27 +63,6 @@ DB_NAME=recipe;DB_USERNAME=postgres;DB_PASSWORD=pass
 > **Note** If Environment variables field is not available, it can be added via Modify options menu.
 
 <img src="images/environment_variables.png" width="1060"/>
-
-<br/>
-
-3. Run Docker desktop.
-
-<br/>
-
-4. Open command prompt window. Change the current directory to the project directory where the `docker-compose.yml` file
-   is in:
-
-```
-cd recipe-app
-```
-<br/>
-
-
-5. Run the following command:
-
-```
-docker-compose up -d
-```
 
 <br/>
 
