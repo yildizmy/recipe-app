@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Value;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Constant variables used in the project
+ * Constant variables used in the project. A private constructor is added to prevent instantiation.
  */
 public final class Constants {
 
-    private Constants() {}
+    private Constants() {
+        throw new UnsupportedOperationException(CLASS_CANNOT_BE_INSTANTIATED);
+    }
 
     @Value("${spring.jackson.date-format}")
     private static String dateFormat;
@@ -23,6 +25,7 @@ public final class Constants {
     public static final String SORT_BY_ORDINAL = "ordinal";
 
     public static final String SUCCESS = "Success";
+    public static final String CLASS_CANNOT_BE_INSTANTIATED = "This is a utility class and cannot be instantiated";
     public static final String VALIDATION_ERROR = "Validation error. Check 'errors' field for details";
     public static final String FIELD_PARSE_ERROR = "Failed parse field type DATE {}";
     public static final String FIELD_TYPE_ERROR = "Can not use between for {} field type";
@@ -37,6 +40,9 @@ public final class Constants {
     public static final String ALREADY_EXISTS_CATEGORY = "Requested category already exists";
     public static final String ALREADY_EXISTS_INGREDIENT = "Requested ingredient already exists (IngredientId: %d)";
     public static final String ALREADY_EXISTS_UNIT = "Requested unit already exists";
+    public static final String CREATED_CATEGORY = "Category is created";
+    public static final String UPDATED_CATEGORY = "Category is updated";
+    public static final String DELETED_CATEGORY = "Category is deleted";
     public static final String NOT_VALIDATED_ELEMENT = "Failed to validate the input";
     public static final String NOT_VALIDATED_INGREDIENT = "There are duplicate ingredients for the given recipe";
 }
