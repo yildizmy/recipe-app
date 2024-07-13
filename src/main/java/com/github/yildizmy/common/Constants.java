@@ -25,6 +25,7 @@ public final class Constants {
     public static final String SORT_BY_ORDINAL = "ordinal";
 
     public static final String SUCCESS = "Success";
+    public static final String UNKNOWN_ERROR = "Unknown error occurred";
     public static final String CLASS_CANNOT_BE_INSTANTIATED = "This is a utility class and cannot be instantiated";
     public static final String VALIDATION_ERROR = "Validation error. Check 'errors' field for details";
     public static final String FIELD_PARSE_ERROR = "Failed parse field type DATE {}";

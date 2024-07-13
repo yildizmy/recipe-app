@@ -15,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import static com.github.yildizmy.common.Constants.*;
 
@@ -92,8 +93,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(Exception ex, WebRequest request) {
-        log.error(ex.getMessage(), ex);
-        return buildErrorResponse(ex, HttpStatus.INTERNAL_SERVER_ERROR, request);
+        String message = Optional.ofNullable(ex.getMessage()).orElse(UNKNOWN_ERROR);
+        log.error(message, ex);
+        return buildErrorResponse(ex, message, HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     /**
